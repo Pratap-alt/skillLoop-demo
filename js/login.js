@@ -2,7 +2,7 @@
 // Frontend login that posts credentials to your backend API and expects cookie-based auth.
 // Change API_BASE to your backend host when deployed.
 
-const API_BASE = 'http://localhost:4000'; // <- change for production
+const API_BASE = 'https://skill-loop-demo-tan.vercel.app/'; // <- change for production
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('loginForm');
