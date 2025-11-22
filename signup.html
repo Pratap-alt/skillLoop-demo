@@ -52,20 +52,12 @@
         <a class="back-home" href="index.html" aria-label="Back to Home"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
         <div class="hero-top">
-          <!-- Unsplash icon with fallback to your uploaded file path.
-               If Unsplash fails it'll load local file: /mnt/data/s1.png -->
-          <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80"
-            onerror="this.onerror=null;this.src='/mnt/data/s1.png';"
-            alt="learning illustration"
-            class="hero-icon"
-            width="64" height="64"
-          >
           <h1>Create Your Account</h1>
           <p class="subtitle">Join thousands of learners and start your journey today</p>
         </div>
 
         <div class="signup-grid">
+          <!-- Only the form remains (full width) -->
           <form id="signupForm" class="signup-form" novalidate>
             <fieldset>
               <legend><i class="fas fa-user"></i> Personal Information</legend>
@@ -161,21 +153,6 @@
 
             <p class="alt-action">Already have an account? <a href="login.html">Sign in</a></p>
           </form>
-
-          <aside class="signup-side">
-            <!-- Unsplash side illustration with fallback to your local uploaded file.
-                 If Unsplash fails it'll load local path: /mnt/data/s2.png -->
-            <img
-              src="https://images.unsplash.com/photo-1507537509458-b8312d23b20c?auto=format&fit=crop&w=1200&q=80"
-              onerror="this.onerror=null;this.src='/mnt/data/s2.png';"
-              alt="students studying"
-              class="side-illustration"
-            >
-            <div class="side-note">
-              <h3>Learn at your own pace</h3>
-              <p>Access thousands of courses, earn certificates and build job-ready skills from industry leaders.</p>
-            </div>
-          </aside>
         </div>
 
       </div>
