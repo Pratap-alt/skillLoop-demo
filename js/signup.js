@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // POST to backend signup endpoint
-      const resp = await fetch(`${API_BASE}/backend/api/auth/signup`, {
+      const resp = await fetch(`/api/auth/signup`, {
         method: 'POST',
         credentials: 'include', // required for cookie-based auth
         headers: { 'Content-Type': 'application/json' },
