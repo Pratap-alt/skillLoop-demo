@@ -264,49 +264,55 @@ p {
     color: var(--dark-gray);
 }
 
-/* Hero Section - DARK OVERLAY + IMAGE (local path used) */
+/* Hero Section — Soft Gradient + Unsplash Business Image */
 .hero {
     position: relative;
     color: var(--white);
     padding: 120px 0;
     text-align: center;
 
-    /* Place the image first, then gradient overlay on top using multiple backgrounds.
-       The overlay is semi-opaque black to ensure strong contrast for white text. */
+    /* Soft brand gradient + Unsplash image */
     background-image:
-        linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-        url("/mnt/data/bc.png");
+        linear-gradient(135deg, rgba(59,130,246,0.55), rgba(139,92,246,0.55)),
+        url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2000&q=80");
+
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-blend-mode: normal; /* dark overlay applied explicitly via gradient layer */
+
+    /* Blend gradient + image smoothly */
+    background-blend-mode: overlay;
+
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ensure content sits above pseudo layers */
+/* Keep hero content above blended layers */
 .hero .container {
     position: relative;
     z-index: 2;
 }
 
-/* Keep hero content stacked above the background */
 .hero .hero-content {
     position: relative;
     z-index: 3;
 }
 
-/* Optional subtle vignette to further improve readability on edges */
+/* Optional subtle dark vignette */
 .hero::after {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0.0) 45%, rgba(0,0,0,0.18) 100%);
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0) 40%,
+        rgba(0, 0, 0, 0.15) 100%
+    );
     z-index: 1;
 }
 
-/* Hero text tweaks */
+/* Hero text adjustments */
 .hero h1 {
     color: var(--white);
     margin-bottom: 1.5rem;
@@ -314,7 +320,7 @@ p {
 
 .hero p {
     font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(255,255,255,0.95);
     margin-bottom: 2rem;
     max-width: 700px;
     margin-left: auto;
