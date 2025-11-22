@@ -1,19 +1,21 @@
-// login.js — authenticate demo user from localStorage (same user store used by signup.js)
+// js/login.js
+// Frontend login that posts credentials to your backend API and expects cookie-based auth.
+// Change API_BASE to your backend host when deployed.
+
+const API_BASE = 'http://localhost:4000'; // <- change for production
 
 document.addEventListener('DOMContentLoaded', () => {
-  // set footer year
-  const y = document.getElementById('copyYear');
-  if (y) y.textContent = new Date().getFullYear();
-
   const form = document.getElementById('loginForm');
+  const yearEl = document.getElementById('copyYear');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearValidation(form);
 
-    const email = (form.email.value || '').trim().toLowerCase();
-    const password = (form.password.value || '');
+    const email = (form.email?.value || '').trim().toLowerCase();
+    const password = form.password?.value || '';
 
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
       setFieldError(form.email, 'Please enter a valid email');
@@ -24,56 +26,111 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // lookup users stored in localStorage (demo)
-    const users = JSON.parse(localStorage.getItem('skillloop_users') || '[]');
+    try {
+      const resp = await fetch(`${API_BASE}/api/auth/login`, {
+        method: 'POST',
+        credentials: 'include', // important if server sets HttpOnly cookie
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
 
-    // In our demo we don't store password — so we treat presence of email as success.
-    // If your signup stores password, check it here:
-    const matched = users.find(u => u.email === email);
+      const json = await resp.json().catch(() => ({}));
 
-    if (!matched) {
-      setFieldError(form.email, 'No account found for this email.');
-      return;
+      if (!resp.ok) {
+        const msg = json.error || json.message || 'Login failed';
+        // if server returns field-specific errors, map them
+        if (json.errors && typeof json.errors === 'object') {
+          for (const k in json.errors) {
+            const el = form.querySelector(`[name="${k}"]`);
+            if (el) setFieldError(el, json.errors[k]);
+          }
+        } else {
+          showFormError(msg, form);
+        }
+        return;
+      }
+
+      // Success — server should set HttpOnly cookie. Optionally json.user returned.
+      showToast('Signed in — redirecting...');
+      setTimeout(() => {
+        // Change to the page where logged-in users should land
+        window.location.href = 'index.html';
+      }, 900);
+
+    } catch (err) {
+      console.error('Network or server error during login:', err);
+      showFormError('Network error. Please try again later.', form);
     }
-
-    // For demo: set a session flag in localStorage and redirect
-    localStorage.setItem('skillloop_session', JSON.stringify({ email: matched.email, id: matched.id, startedAt: new Date().toISOString() }));
-
-    showToast('Welcome back! Redirecting...');
-    setTimeout(() => {
-      // change to your desired landing page after login
-      window.location.href = 'index.html';
-    }, 1000);
   });
 
-  // clear errors on input
+  // Remove error when user changes input
   form.querySelectorAll('input').forEach(inp => {
     inp.addEventListener('input', () => {
       inp.classList.remove('input-error');
-      const m = inp.parentElement.querySelector('.error-msg'); if (m) m.remove();
+      const msg = inp.parentElement.querySelector('.error-msg');
+      if (msg) msg.remove();
     });
   });
 
+  // Helpers (same as signup)
   function setFieldError(el, message) {
     if (!el) return;
     el.classList.add('input-error');
     let msg = el.parentElement.querySelector('.error-msg');
     if (!msg) {
-      msg = document.createElement('div'); msg.className = 'error-msg'; el.parentElement.appendChild(msg);
+      msg = document.createElement('div');
+      msg.className = 'error-msg';
+      el.parentElement.appendChild(msg);
     }
     msg.textContent = message;
     if (el.focus) el.focus();
   }
+
   function clearValidation(frm) {
     frm.querySelectorAll('.input-error').forEach(n => n.classList.remove('input-error'));
     frm.querySelectorAll('.error-msg').forEach(n => n.remove());
+    const banner = frm.querySelector('.form-error-banner');
+    if (banner) banner.remove();
   }
 
-  // toast
+  function showFormError(message, containerForm) {
+    let banner = containerForm.querySelector('.form-error-banner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.className = 'form-error-banner';
+      banner.style.color = '#ffffff';
+      banner.style.background = 'linear-gradient(90deg,#ff5f6d,#ffc371)';
+      banner.style.padding = '10px 14px';
+      banner.style.borderRadius = '8px';
+      banner.style.marginBottom = '12px';
+      banner.style.fontWeight = '600';
+      containerForm.prepend(banner);
+    }
+    banner.textContent = message;
+    setTimeout(() => {
+      banner?.remove();
+    }, 6000);
+  }
+
   function showToast(text) {
     let t = document.querySelector('.toast');
-    if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
-    t.textContent = text; t.style.opacity = '1';
-    setTimeout(() => { t.style.opacity = '0'; }, 2400);
+    if (!t) {
+      t = document.createElement('div');
+      t.className = 'toast';
+      t.style.position = 'fixed';
+      t.style.right = '20px';
+      t.style.bottom = '20px';
+      t.style.background = '#0f172a';
+      t.style.color = '#fff';
+      t.style.padding = '10px 14px';
+      t.style.borderRadius = '8px';
+      t.style.zIndex = 9999;
+      document.body.appendChild(t);
+    }
+    t.textContent = text;
+    t.style.opacity = '1';
+    setTimeout(() => {
+      t.style.opacity = '0';
+    }, 2500);
   }
 });
