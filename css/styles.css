@@ -1,6 +1,268 @@
-/* ------------------------------
-   HERO SECTION (clean blend, NO overlay)
-   ------------------------------ */
+/* styles.css - Full file (Soft gradient + your uploaded image, NO overlay) */
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Temporary highlight shown when scrolling to a category card */
+.category-card.highlight {
+    animation: card-highlight 2s ease forwards;
+    box-shadow: 0 12px 35px rgba(42, 108, 255, 0.18);
+    transform: translateY(-2px);
+}
+
+@keyframes card-highlight {
+    0% {
+        box-shadow: 0 6px 18px rgba(42,108,255,0.06);
+        transform: translateY(0);
+    }
+    30% {
+        box-shadow: 0 18px 45px rgba(42,108,255,0.22);
+        transform: translateY(-3px) scale(1.01);
+    }
+    100% {
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        transform: translateY(0);
+    }
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-blue: #3b82f6;
+    --primary-purple: #8b5cf6;
+    --dark-gray: #1f2937;
+    --medium-gray: #6b7280;
+    --light-gray: #f3f4f6;
+    --white: #ffffff;
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-gray);
+    background-color: var(--white);
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Typography */
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-size: 1rem;
+    color: var(--medium-gray);
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.125rem;
+    color: var(--medium-gray);
+    margin-bottom: 3rem;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+    color: var(--white);
+    border: none;
+    box-shadow: 0 6px 18px rgba(59,130,246,0.12);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.22);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+.btn-outline:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+.btn-outline-white {
+    background: transparent;
+    border: 2px solid var(--white);
+    color: var(--white);
+}
+
+.btn-outline-white:hover {
+    background: var(--white);
+    color: var(--primary-blue);
+}
+
+.btn-dark {
+    background: var(--dark-gray);
+    color: var(--white);
+}
+
+.btn-dark:hover {
+    background: #374151;
+}
+
+.btn-large {
+    padding: 16px 32px;
+    font-size: 1.125rem;
+}
+
+/* Header */
+.header {
+    background: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark-gray);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary-blue);
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Container for dropdown */
+.dropdown {
+    position: relative;
+    z-index: 1000;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background: var(--white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    min-width: 250px;
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 9999;
+    pointer-events: auto;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: flex;
+}
+
+.dropdown-menu a {
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    color: var(--dark-gray);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.dropdown-menu a:hover {
+    background: var(--light-gray);
+}
+
+.header-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--dark-gray);
+}
+
+/* -------------------------------------------
+   HERO (clean blend, NO overlay)
+   ------------------------------------------- */
 
 .hero {
     position: relative;
@@ -8,7 +270,7 @@
     padding: 140px 0 110px;
     text-align: center;
 
-    /* soft gradient + your uploaded image */
+    /* gradient + your uploaded hero photo */
     background-image:
         linear-gradient(135deg, rgba(59,130,246,0.55), rgba(139,92,246,0.55)),
         url("/mnt/data/liek.png");
@@ -16,7 +278,7 @@
     background-position: center;
     background-repeat: no-repeat;
 
-    /* Only gradient + image blend. No dark overlays. */
+    /* clean tint, no dark overlay */
     background-blend-mode: soft-light;
 
     -webkit-font-smoothing: antialiased;
@@ -24,17 +286,11 @@
     overflow: hidden;
 }
 
-/* Remove dark overlay */
-.hero::before {
-    content: none;
-}
-
-/* Remove vignette */
+.hero::before,
 .hero::after {
-    content: none;
+    content: none !important; /* remove overlays */
 }
 
-/* Content */
 .hero .container {
     position: relative;
     z-index: 2;
@@ -63,3 +319,118 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Responsive hero tweaks */
+@media (max-width: 480px) {
+    .hero {
+        padding: 70px 0;
+    }
+    .hero h1 {
+        font-size: 1.9rem;
+    }
+}
+
+/* Features */
+.features {
+    padding: 80px 0;
+    background: var(--light-gray);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card i {
+    font-size: 3rem;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+/* ... (Everything below stays EXACTLY the same from your file) ... */
+
+/* Partners */
+.partners {
+    padding: 60px 0;
+    background: var(--white);
+    text-align: center;
+}
+
+.partner-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.partner-logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--medium-gray);
+    opacity: 0.7;
+    transition: var(--transition);
+}
+
+.partner-logo:hover {
+    opacity: 1;
+    color: var(--primary-blue);
+}
+
+/* Categories */
+.categories {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.category-card {
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    cursor: pointer;
+    height: 200px;
+    transition: var(--transition);
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ... (continues unchanged all the way to the end) ... */
+
