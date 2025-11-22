@@ -11,9 +11,8 @@
   <!-- signup-specific styles -->
   <link rel="stylesheet" href="css/signup.css">
 
-  <!-- Font Awesome for icons (you already use this) -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
 </head>
 <body>
 
@@ -21,7 +20,6 @@
     <div class="container">
       <nav class="navbar">
         <div class="logo">
-          <!-- reuse same logo -->
           <svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
             <defs>
               <linearGradient id="logoGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -54,7 +52,15 @@
         <a class="back-home" href="index.html" aria-label="Back to Home"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
         <div class="hero-top">
-         <img src="photos/s1.png" alt="stack icon" class="hero-icon" width="64" height="64">
+          <!-- Unsplash icon with fallback to your uploaded file path.
+               If Unsplash fails it'll load local file: /mnt/data/s1.png -->
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80"
+            onerror="this.onerror=null;this.src='/mnt/data/s1.png';"
+            alt="learning illustration"
+            class="hero-icon"
+            width="64" height="64"
+          >
           <h1>Create Your Account</h1>
           <p class="subtitle">Join thousands of learners and start your journey today</p>
         </div>
@@ -157,7 +163,14 @@
           </form>
 
           <aside class="signup-side">
-           <img src="photos/s2.png" alt="students studying" class="side-illustration">
+            <!-- Unsplash side illustration with fallback to your local uploaded file.
+                 If Unsplash fails it'll load local path: /mnt/data/s2.png -->
+            <img
+              src="https://images.unsplash.com/photo-1507537509458-b8312d23b20c?auto=format&fit=crop&w=1200&q=80"
+              onerror="this.onerror=null;this.src='/mnt/data/s2.png';"
+              alt="students studying"
+              class="side-illustration"
+            >
             <div class="side-note">
               <h3>Learn at your own pace</h3>
               <p>Access thousands of courses, earn certificates and build job-ready skills from industry leaders.</p>
