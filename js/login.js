@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const resp = await fetch(`${API_BASE}/backend/api/auth/login`, {
+      const resp = await fetch(`/api/auth/login`, {
         method: 'POST',
         credentials: 'include', // important if server sets HttpOnly cookie
         headers: { 'Content-Type': 'application/json' },
