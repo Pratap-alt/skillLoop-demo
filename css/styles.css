@@ -530,6 +530,8 @@ p {
 .stars { color: #fbbf24; }
 
 .course-price {
+    /* removed price display; left here if you want to toggle later */
+    display: none;
     font-weight: 700;
     font-size: 1.25rem;
     color: var(--dark-gray);
@@ -541,6 +543,9 @@ p {
     background: var(--light-gray);
 }
 
+/* (rest of file same as above) */
+
+/* testimonial-grid and the rest are already included above; no changes needed */
 .testimonial-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
