@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('skillloop_users', JSON.stringify(users));
 
     showToast('Account created successfully! Redirecting to sign in...');
-    setTimeout(() => window.location.href = 'login.html', 1600);
+    setTimeout(() => window.location.href = 'login.html', 1400);
   });
 
   // remove error on input
