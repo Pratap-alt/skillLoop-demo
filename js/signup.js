@@ -1,80 +1,123 @@
-// signup.js — modern glass signup logic (client-only demo storing to localStorage)
+// js/signup.js
+// Frontend signup that posts to your backend API and expects cookie-based auth (HttpOnly cookie).
+// Change API_BASE if your backend uses a different host/port (e.g. the production URL).
+
+const API_BASE = 'http://localhost:4000'; // <- change to your backend URL when deployed
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Set footer year
-  const y = document.getElementById('copyYear');
-  if (y) y.textContent = new Date().getFullYear();
-
   const form = document.getElementById('signupForm');
+  const yearEl = document.getElementById('copyYear');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearValidation(form);
 
-    const data = {
-      firstName: (form.firstName?.value || '').trim(),
-      lastName: (form.lastName?.value || '').trim(),
-      email: (form.email?.value || '').trim().toLowerCase(),
-      password: (form.password?.value || ''),
-      confirmPassword: (form.confirmPassword?.value || '')
-    };
+    const firstName = (form.firstName?.value || '').trim();
+    const lastName = (form.lastName?.value || '').trim();
+    const email = (form.email?.value || '').trim().toLowerCase();
+    const password = form.password?.value || '';
+    const confirmPassword = form.confirmPassword?.value || '';
 
-    // Basic validation
+    // Client-side validation
     const errors = {};
-    if (!data.firstName) errors.firstName = 'First name is required';
-    if (!data.lastName) errors.lastName = 'Last name is required';
-    if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email)) errors.email = 'Please enter a valid email';
-    if (!data.password || data.password.length < 8) errors.password = 'Password must be at least 8 characters';
-    if (data.password !== data.confirmPassword) errors.confirmPassword = 'Passwords do not match';
+    if (!firstName) errors.firstName = 'Please enter your first name';
+    if (!lastName) errors.lastName = 'Please enter your last name';
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) errors.email = 'Please enter a valid email address';
+    if (!password || password.length < 8) errors.password = 'Password must contain at least 8 characters';
+    if (password !== confirmPassword) errors.confirmPassword = 'Passwords do not match';
     if (!form.agreeTerms?.checked) errors.agreeTerms = 'You must accept the Terms and Privacy';
 
     if (Object.keys(errors).length) {
-      showValidationErrors(errors);
+      showValidationErrors(errors, form);
       return;
     }
 
-    // Demo: localStorage user store (NOT for production)
-    const users = JSON.parse(localStorage.getItem('skillloop_users') || '[]');
-    if (users.some(u => u.email === data.email)) {
-      setFieldError(form.email, 'An account with this email already exists.');
-      return;
-    }
-
-    const record = {
-      id: 'u_' + Date.now(),
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      createdAt: new Date().toISOString()
-      // Do not store plain passwords in production. This demo does not store pw.
+    // Build payload
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      password
     };
 
-    users.push(record);
-    localStorage.setItem('skillloop_users', JSON.stringify(users));
+    try {
+      // POST to backend signup endpoint
+      const resp = await fetch(`${API_BASE}/api/auth/signup`, {
+        method: 'POST',
+        credentials: 'include', // required for cookie-based auth
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
 
-    showToast('Account created — redirecting to sign in...');
-    setTimeout(() => window.location.href = 'login.html', 1400);
+      const json = await resp.json().catch(() => ({}));
+
+      if (!resp.ok) {
+        // Try to show field-specific errors if server provided them
+        const msg = json.error || json.message || 'Signup failed';
+        // If server returned validation errors object, map them to fields (common pattern)
+        if (json.errors && typeof json.errors === 'object') {
+          showValidationErrors(json.errors, form);
+        } else {
+          showFormError(msg, form);
+        }
+        return;
+      }
+
+      // Success
+      showToast('Account created successfully. Redirecting to sign in...');
+      // You may redirect to dashboard directly if server logs in user and sets cookie
+      setTimeout(() => window.location.href = 'login.html', 1400);
+
+    } catch (err) {
+      console.error('Network or server error during signup:', err);
+      showFormError('Network error. Please try again later.', form);
+    }
   });
 
-  // Remove error once user types
+  // Remove error when user starts typing
   form.querySelectorAll('input').forEach(inp => {
     inp.addEventListener('input', () => {
       inp.classList.remove('input-error');
-      const msg = inp.parentElement?.querySelector('.error-msg');
+      const msg = inp.parentElement.querySelector('.error-msg');
       if (msg) msg.remove();
     });
   });
 
-  function showValidationErrors(errors) {
-    Object.keys(errors).forEach(k => {
-      const el = form.querySelector(`[name="${k}"]`) || document.getElementById(k);
-      if (el) setFieldError(el, errors[k]);
-      if (k === 'agreeTerms') {
-        const checkbox = form.querySelector('#agreeTerms');
-        if (checkbox) setFieldError(checkbox, errors[k]);
+  // Helper functions
+  function showValidationErrors(errors, containerForm) {
+    Object.keys(errors).forEach(key => {
+      const message = errors[key];
+      const el = containerForm.querySelector(`[name="${key}"]`) || document.getElementById(key);
+      if (el) setFieldError(el, message);
+      // special-case checkbox
+      if (key === 'agreeTerms') {
+        const cb = containerForm.querySelector('#agreeTerms');
+        if (cb) setFieldError(cb, errors[key]);
       }
     });
+  }
+
+  function showFormError(message, containerForm) {
+    // global form-level error displayed on top of the form when no field chosen
+    // create or reuse a small banner
+    let banner = containerForm.querySelector('.form-error-banner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.className = 'form-error-banner';
+      banner.style.color = '#ffffff';
+      banner.style.background = 'linear-gradient(90deg, #ff5f6d, #ffc371)';
+      banner.style.padding = '10px 14px';
+      banner.style.borderRadius = '8px';
+      banner.style.marginBottom = '12px';
+      banner.style.fontWeight = '600';
+      containerForm.prepend(banner);
+    }
+    banner.textContent = message;
+    setTimeout(() => {
+      banner?.remove();
+    }, 6000);
   }
 
   function setFieldError(el, message) {
@@ -90,21 +133,32 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el.focus) el.focus();
   }
 
-  function clearValidation(form) {
-    form.querySelectorAll('.input-error').forEach(n => n.classList.remove('input-error'));
-    form.querySelectorAll('.error-msg').forEach(n => n.remove());
+  function clearValidation(frm) {
+    frm.querySelectorAll('.input-error').forEach(n => n.classList.remove('input-error'));
+    frm.querySelectorAll('.error-msg').forEach(n => n.remove());
+    const banner = frm.querySelector('.form-error-banner');
+    if (banner) banner.remove();
   }
 
-  // simple toast
   function showToast(text) {
     let t = document.querySelector('.toast');
     if (!t) {
       t = document.createElement('div');
       t.className = 'toast';
+      t.style.position = 'fixed';
+      t.style.right = '20px';
+      t.style.bottom = '20px';
+      t.style.background = '#0f172a';
+      t.style.color = '#fff';
+      t.style.padding = '10px 14px';
+      t.style.borderRadius = '8px';
+      t.style.zIndex = 9999;
       document.body.appendChild(t);
     }
     t.textContent = text;
     t.style.opacity = '1';
-    setTimeout(() => { t.style.opacity = '0'; }, 2800);
+    setTimeout(() => {
+      t.style.opacity = '0';
+    }, 3000);
   }
 });
