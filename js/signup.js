@@ -2,7 +2,7 @@
 // Frontend signup that posts to your backend API and expects cookie-based auth (HttpOnly cookie).
 // Change API_BASE if your backend uses a different host/port (e.g. the production URL).
 
-const API_BASE = 'http://localhost:4000'; // <- change to your backend URL when deployed
+const API_BASE = 'https://skill-loop-demo-tan.vercel.app/'; // <- change to your backend URL when deployed
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('signupForm');
