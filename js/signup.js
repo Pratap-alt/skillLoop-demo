@@ -1,7 +1,7 @@
-// signup.js - client-side form handling and simulated signup (localStorage demo)
+// signup.js — Modern glass signup logic (client-side demo using localStorage)
 
 document.addEventListener('DOMContentLoaded', () => {
-  // set year in footer
+  // footer year
   const yearEl = document.getElementById('copyYear');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -18,30 +18,24 @@ document.addEventListener('DOMContentLoaded', () => {
       dob: form.dob.value || '',
       email: (form.email.value || '').trim().toLowerCase(),
       phone: (form.phone.value || '').trim(),
-      street: (form.street.value || '').trim(),
-      city: (form.city.value || '').trim(),
-      state: (form.state.value || '').trim(),
-      zip: (form.zip.value || '').trim(),
-      country: (form.country.value || '').trim(),
       password: form.password.value || ''
     };
 
-    // client-side validation
+    // basic client-side validation
     const errors = validate(data);
     if (Object.keys(errors).length) {
       showValidationErrors(errors);
       return;
     }
 
-    // password confirm
-    if (data.password !== form.confirmPassword.value) {
+    // confirm password check
+    if (form.password.value !== form.confirmPassword.value) {
       setFieldError(form.confirmPassword, 'Passwords do not match');
       return;
     }
 
-    // simulated signup using localStorage
+    // Simulated signup - store in localStorage (demo only)
     const users = JSON.parse(localStorage.getItem('skillloop_users') || '[]');
-
     if (users.some(u => u.email === data.email)) {
       setFieldError(form.email, 'An account with this email already exists.');
       return;
@@ -52,35 +46,33 @@ document.addEventListener('DOMContentLoaded', () => {
       ...data,
       createdAt: new Date().toISOString()
     };
-
     users.push(user);
     localStorage.setItem('skillloop_users', JSON.stringify(users));
 
-    showToast('Account created successfully! Redirecting to sign in...');
-    setTimeout(() => window.location.href = 'login.html', 1400);
+    showToast('Account created — redirecting to sign in...');
+    setTimeout(() => window.location.href = 'login.html', 1500);
   });
 
-  // remove error on input
+  // remove validation classes when user types
   form.querySelectorAll('input').forEach(inp => {
     inp.addEventListener('input', () => {
       inp.classList.remove('input-error');
-      const msg = inp.parentElement.querySelector('.error-msg');
-      if (msg) msg.remove();
+      const m = inp.parentNode.querySelector('.error-msg');
+      if (m) m.remove();
     });
   });
 
-  // validators
-  function validate(data){
+  function validate(data) {
     const out = {};
     if (!data.firstName) out.firstName = 'Please enter your first name';
     if (!data.lastName) out.lastName = 'Please enter your last name';
     if (!data.dob) out.dob = 'Please provide your date of birth';
     if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email)) out.email = 'Please enter a valid email address';
-    if (!data.password || data.password.length < 8) out.password = 'Password must contain at least 8 characters';
+    if (!data.password || data.password.length < 8) out.password = 'Password must be at least 8 characters';
     return out;
   }
 
-  function showValidationErrors(errors){
+  function showValidationErrors(errors) {
     Object.keys(errors).forEach(key => {
       const el = form.querySelector(`[name="${key}"]`);
       if (el) setFieldError(el, errors[key]);
@@ -100,15 +92,15 @@ document.addEventListener('DOMContentLoaded', () => {
     el.focus();
   }
 
-  function clearValidation(frm){
+  function clearValidation(frm) {
     frm.querySelectorAll('.input-error').forEach(n => n.classList.remove('input-error'));
     frm.querySelectorAll('.error-msg').forEach(n => n.remove());
   }
 
-  // toast helper
-  function showToast(text){
+  // lightweight toast
+  function showToast(text) {
     let t = document.querySelector('.toast');
-    if (!t){
+    if (!t) {
       t = document.createElement('div');
       t.className = 'toast';
       document.body.appendChild(t);
