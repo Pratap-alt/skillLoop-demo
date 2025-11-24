@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('Signed in — redirecting...');
       setTimeout(() => {
         // Change to the page where logged-in users should land
-        window.location.href = 'index.html';
+        window.location.href = 'home.html';
       }, 900);
 
     } catch (err) {
