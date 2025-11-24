@@ -3,7 +3,7 @@
 
 const mongoose = require('mongoose');
 
-const MONGODB_URI ='mongodb+srv://Pratap:Pratap@pratap.wykz1my.mongodb.net/'
+const MONGODB_URI =mongodb+srv://Pratap:Pratap@pratap.wykz1my.mongodb.net/?appName=pratap
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside Vercel.');
