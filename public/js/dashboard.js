@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentProfile = null;
     let currentAvatarDataUrl = null;
 
-    // Helper: format date as yyyy-mm-dd
     function toDateInputValue(iso) {
         if (!iso) return "";
         const d = new Date(iso);
@@ -48,8 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (res.status === 401) {
-                // Not logged in → redirect
-                window.location.href = "login.html"; // change if your login is different
+                // ⬇⬇ redirect to index.html (login page)
+                window.location.href = "index.html";
                 return;
             }
 
@@ -161,7 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 if (res.status === 401) {
-                    window.location.href = "login.html"; // change if needed
+                    // ⬇⬇ redirect to index.html (login page)
+                    window.location.href = "index.html";
                     return;
                 }
 
@@ -203,4 +203,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-//placeholder file
