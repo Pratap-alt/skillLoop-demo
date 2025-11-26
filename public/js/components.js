@@ -1,11 +1,16 @@
-// components.js (updated) - safer image handling + fallbacks + debug logs
+// components.js - categories, courses, testimonials + Business page link
 
 // Local fallback image (you uploaded this earlier; it's used if remote images fail)
 const LOCAL_FALLBACK = "/mnt/data/sa.png";
 
 // Categories Data (using Unsplash URLs)
 const categories = [
-    { name: 'Business', courses: 1200, image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40' },
+    {
+        name: 'Business',
+        courses: 1200,
+        image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40',
+        link: 'business.html' // 👉 when clicked, go to business page
+    },
     { name: 'Artificial Intelligence', courses: 850, image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995' },
     { name: 'Data Science', courses: 950, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71' },
     { name: 'Web Development', courses: 1500, image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085' },
@@ -48,20 +53,11 @@ function slugify(text) {
         .replace(/^-+|-+$/g, '');
 }
 
-function safeImageUrl(baseUrl, opts = {}) {
-    // If the URL already has query params, keep them; else append a safe crop/format query so Unsplash serves an optimized image.
+function safeImageUrl(baseUrl) {
     if (!baseUrl) return LOCAL_FALLBACK;
     const hasQuery = baseUrl.indexOf('?') !== -1;
     const params = 'auto=format&fit=crop&w=1200&q=80';
     return hasQuery ? baseUrl + '&' + params : baseUrl + '?' + params;
-}
-
-function imageOnErrorHandler(img) {
-    if (!img) return;
-    if (img.dataset.fallbackApplied === '1') return; // prevent infinite loop
-    img.dataset.fallbackApplied = '1';
-    img.src = LOCAL_FALLBACK;
-    img.classList.add('image-fallback'); // optional styling hook
 }
 
 // Render categories
@@ -75,14 +71,16 @@ function renderCategories() {
     grid.innerHTML = categories.map(cat => {
         const id = slugify(cat.name);
         const imgSrc = safeImageUrl(cat.image);
+        const href = cat.link || '#';
         return `
-            <div class="category-card" id="${id}">
-                <img src="${imgSrc}" alt="${cat.name}" loading="lazy" onerror="this.dataset.fallbackApplied ? null : (this.dataset.fallbackApplied='1', this.src='${LOCAL_FALLBACK}')">
+            <a class="category-card" id="${id}" href="${href}">
+                <img src="${imgSrc}" alt="${cat.name}" loading="lazy"
+                    onerror="this.dataset.fallbackApplied ? null : (this.dataset.fallbackApplied='1', this.src='${LOCAL_FALLBACK}')">
                 <div class="category-overlay">
                     <h3>${cat.name}</h3>
                     <p>${cat.courses.toLocaleString()} courses</p>
                 </div>
-            </div>
+            </a>
         `;
     }).join('');
 }
@@ -99,17 +97,20 @@ function renderCourses(courses, containerId) {
         const imgSrc = safeImageUrl(course.image);
         return `
             <div class="course-card">
-                <img src="${imgSrc}" alt="${escapeHtml(course.title)}" class="course-image" loading="lazy" onerror="this.dataset.fallbackApplied ? null : (this.dataset.fallbackApplied='1', this.src='${LOCAL_FALLBACK}')">
+                <img src="${imgSrc}" alt="${escapeHtml(course.title)}"
+                     class="course-image" loading="lazy"
+                     onerror="this.dataset.fallbackApplied ? null : (this.dataset.fallbackApplied='1', this.src='${LOCAL_FALLBACK}')">
                 <div class="course-content">
                     <span class="course-category">${escapeHtml(course.category)}</span>
                     <h3>${escapeHtml(course.title)}</h3>
                     <p class="course-instructor">By ${escapeHtml(course.instructor)}</p>
                     <div class="course-footer">
                         <div class="course-rating">
-                            <span class="stars">${'★'.repeat(Math.floor(course.rating))}${'☆'.repeat(5 - Math.floor(course.rating))}</span>
+                            <span class="stars">
+                                ${'★'.repeat(Math.floor(course.rating))}${'☆'.repeat(5 - Math.floor(course.rating))}
+                            </span>
                             <span>${course.rating} (${course.reviews.toLocaleString()})</span>
                         </div>
-                        <!-- price intentionally omitted -->
                     </div>
                 </div>
             </div>
@@ -125,12 +126,14 @@ function renderTestimonials() {
     }
 
     grid.innerHTML = testimonials.map(t => {
-        const imgSrc = safeImageUrl(t.image, { w: 120, h: 120 });
+        const imgSrc = safeImageUrl(t.image);
         return `
             <div class="testimonial-card">
                 <div class="quote-icon">"</div>
                 <div class="testimonial-profile">
-                    <img src="${imgSrc}" alt="${escapeHtml(t.name)}" class="profile-image" loading="lazy" onerror="this.dataset.fallbackApplied ? null : (this.dataset.fallbackApplied='1', this.src='${LOCAL_FALLBACK}')">
+                    <img src="${imgSrc}" alt="${escapeHtml(t.name)}"
+                         class="profile-image" loading="lazy"
+                         onerror="this.dataset.fallbackApplied ? null : (this.dataset.fallbackApplied='1', this.src='${LOCAL_FALLBACK}')">
                     <div class="profile-info">
                         <h4>${escapeHtml(t.name)}</h4>
                         <p>${escapeHtml(t.role)}</p>
@@ -153,3 +156,19 @@ function escapeHtml(str) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
 }
+
+// Auto-render on pages that have the grids
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('categoryGrid')) {
+        renderCategories();
+    }
+    if (document.getElementById('trendingGrid')) {
+        renderCourses(trendingCourses, 'trendingGrid');
+    }
+    if (document.getElementById('featuredGrid')) {
+        renderCourses(featuredCourses, 'featuredGrid');
+    }
+    if (document.getElementById('testimonialGrid')) {
+        renderTestimonials();
+    }
+});
