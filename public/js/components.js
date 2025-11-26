@@ -14,14 +14,14 @@ const categories = [
     
     {
         name: 'Artificial Intelligence',
-        courses: "4",
+        courses: "4+",
         image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995',
         link: 'ai.html'
     },
     
     {
         name: 'Data Science',
-        courses: "4",
+        courses: "4+",
         image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71',
         link: 'data-science.html' 
     },
