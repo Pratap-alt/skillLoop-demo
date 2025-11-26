@@ -59,38 +59,6 @@
     color: #111827;
 }
 
-/* Small course cards (if you later add thumbnails) */
-.course-small-card {
-    padding: 14px;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    display: flex;
-    gap: 14px;
-    background: #fafafa;
-    align-items: center;
-    margin-bottom: 10px;
-    transition: 0.2s;
-}
-
-.course-small-card:hover {
-    background: #eef6ff;
-    border-color: #3b82f6;
-}
-
-.course-small-card img {
-    width: 70px;
-    height: 50px;
-    border-radius: 6px;
-    object-fit: cover;
-}
-
-/* Quick action buttons row */
-.quick-actions {
-    margin-top: 14px;
-    display: flex;
-    gap: 10px;
-}
-
 /* Logout button styling (both header + mobile) */
 .logoutBtn {
     margin-top: 0;
@@ -114,6 +82,82 @@
 /* Mobile-only logout (bottom of page) */
 .mobile-logout {
     margin-top: 28px;
+}
+
+/* Utility hidden */
+.hidden {
+    display: none !important;
+}
+
+/* Profile avatar circle */
+.profile-avatar {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 12px;
+}
+
+.avatar-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid #3b82f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #eff6ff;
+}
+
+.avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-circle i {
+    font-size: 28px;
+    color: #3b82f6;
+}
+
+/* Edit form layout */
+.profile-edit-form .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.profile-edit-form label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.profile-edit-form input,
+.profile-edit-form textarea,
+.profile-edit-form select {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.profile-edit-form input:focus,
+.profile-edit-form textarea:focus,
+.profile-edit-form select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px rgba(59,130,246,0.25);
+}
+
+.profile-edit-form textarea {
+    resize: vertical;
+}
+
+.profile-edit-form .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
 }
 
 /* Responsive tweaks */
