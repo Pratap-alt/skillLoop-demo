@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillLoop | Learn Web Development</title>
 
-    <!-- Shared main CSS -->
+    <!-- Main global stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
 
-    <!-- Web Dev specific CSS -->
+    <!-- Page specific stylesheet -->
     <link rel="stylesheet" href="css/web-development.css">
 </head>
 <body>
@@ -22,6 +22,7 @@
                 </div>
                 <span class="brand-text">SkillLoop</span>
             </a>
+
             <nav class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="#courses" class="nav-link">Courses</a>
@@ -33,13 +34,13 @@
 
     <main class="wd-main">
 
-        <!-- HERO -->
+        <!-- HERO SECTION -->
         <section class="wd-hero" id="home">
             <div class="container wd-hero-container">
                 <div class="wd-hero-content">
                     <h1>Become a Web Developer</h1>
-                    <p>Learn how websites are built—from HTML to advanced JavaScript frameworks.</p>
-                    
+                    <p>Learn how websites are built — from HTML & CSS to advanced JavaScript frameworks.</p>
+
                     <div class="wd-hero-actions">
                         <a href="#videos" class="btn primary-btn">Start Learning Web Dev</a>
                         <a href="#courses" class="btn ghost-btn">Explore Paths</a>
@@ -47,7 +48,7 @@
 
                     <div class="wd-hero-meta">
                         <span>✔ Beginner friendly</span>
-                        <span>✔ Learn by building real projects</span>
+                        <span>✔ Build real projects</span>
                         <span>✔ Frontend + Backend skills</span>
                     </div>
                 </div>
@@ -58,70 +59,93 @@
 
                     <div class="wd-video-wrapper">
                         <iframe src="https://www.youtube.com/embed/1rsuQ6C_zX0"
-                            title="How Websites Work"
-                            frameborder="0"
-                            allowfullscreen>
+                            title="How Websites Work" allowfullscreen>
                         </iframe>
                     </div>
 
                     <a href="https://youtu.be/1rsuQ6C_zX0"
-                       target="_blank" class="inline-link">
+                       target="_blank"
+                       class="inline-link">
                        Watch on YouTube ↗
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- SKILLS SECTION -->
+        <!-- WHY SECTION -->
         <section class="wd-section wd-features" id="about">
             <div class="container">
                 <h2 class="section-title">Why Learn Web Development?</h2>
-                <p class="section-subtitle">Build anything — interactive, modern & fast web experiences.</p>
+                <p class="section-subtitle">
+                    Build anything — interactive, modern & fast web experiences used by millions.
+                </p>
 
                 <div class="wd-features-grid">
-                    <div class="feature-card"><div class="feature-icon">🌐</div><h3>HTML & CSS</h3><p>Structure + design your first website.</p></div>
-                    <div class="feature-card"><div class="feature-icon">⚡</div><h3>JavaScript</h3><p>Make pages interactive and dynamic.</p></div>
-                    <div class="feature-card"><div class="feature-icon">🧠</div><h3>Frameworks</h3><p>Learn React & modern UI techniques.</p></div>
-                    <div class="feature-card"><div class="feature-icon">🔐</div><h3>Backend</h3><p>Store data using Node.js + databases.</p></div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h3>HTML & CSS</h3>
+                        <p>Structure and style your first website.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>JavaScript</h3>
+                        <p>Create dynamic and interactive pages.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Frameworks</h3>
+                        <p>Learn React and modern web technologies.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔐</div>
+                        <h3>Backend Skills</h3>
+                        <p>Work with APIs, databases & security.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- PATHS -->
+        <!-- LEARNING PATHS -->
         <section class="wd-section wd-paths" id="courses">
             <div class="container">
-                <h2 class="section-title">Web Dev Learning Paths</h2>
+                <h2 class="section-title">Web Development Paths</h2>
 
                 <div class="wd-paths-grid">
                     <div class="path-card">
-                        <h3>Frontend Development</h3>
+                        <h3>Frontend Developer</h3>
                         <ul>
-                            <li>HTML5 & CSS3</li>
+                            <li>HTML5 + CSS3</li>
                             <li>JavaScript Essentials</li>
-                            <li>Responsive Design</li>
+                            <li>Responsive UI</li>
                         </ul>
                     </div>
+
                     <div class="path-card">
-                        <h3>Backend Development</h3>
+                        <h3>Backend Developer</h3>
                         <ul>
                             <li>Node.js Basics</li>
-                            <li>APIs & Databases</li>
+                            <li>REST APIs & Databases</li>
                             <li>Authentication</li>
                         </ul>
                     </div>
+
                     <div class="path-card">
-                        <h3>Full-Stack Roadmap</h3>
+                        <h3>Full-Stack Developer</h3>
                         <ul>
-                            <li>Frontend + Backend Combo</li>
-                            <li>Deployment & Hosting</li>
+                            <li>Frontend + Backend</li>
+                            <li>Hosting & Deployment</li>
                             <li>Real Projects</li>
                         </ul>
                     </div>
+
                     <div class="path-card">
-                        <h3>UI/UX Basics</h3>
+                        <h3>UI/UX Web</h3>
                         <ul>
                             <li>Design Thinking</li>
-                            <li>Prototyping</li>
+                            <li>Wireframing</li>
                             <li>Usability Rules</li>
                         </ul>
                     </div>
@@ -129,16 +153,41 @@
             </div>
         </section>
 
-        <!-- VIDEOS -->
+        <!-- VIDEO LESSONS -->
         <section class="wd-section wd-videos" id="videos">
             <div class="container">
                 <h2 class="section-title">Free Web Dev Lessons</h2>
 
                 <div class="wd-videos-grid">
-                    <article class="video-card"><h3>HTML Basics</h3><a href="https://youtu.be/qz0aGYrrlhU" class="btn link-btn" target="_blank">Watch Lesson</a></article>
-                    <article class="video-card"><h3>CSS Basics</h3><a href="https://youtu.be/1Rs2ND1ryYc" class="btn link-btn" target="_blank">Watch Lesson</a></article>
-                    <article class="video-card"><h3>JavaScript Crash Course</h3><a href="https://youtu.be/hdI2bqOjy3c" class="btn link-btn" target="_blank">Watch Lesson</a></article>
-                    <article class="video-card"><h3>Frontend Projects</h3><a href="https://youtu.be/Q33KBiDriJY" class="btn link-btn" target="_blank">Watch Lesson</a></article>
+
+                    <article class="video-card">
+                        <h3>HTML Basics</h3>
+                        <a href="https://youtu.be/qz0aGYrrlhU"
+                           target="_blank"
+                           class="btn link-btn">Watch Lesson</a>
+                    </article>
+
+                    <article class="video-card">
+                        <h3>CSS Basics</h3>
+                        <a href="https://youtu.be/1Rs2ND1ryYc"
+                           target="_blank"
+                           class="btn link-btn">Watch Lesson</a>
+                    </article>
+
+                    <article class="video-card">
+                        <h3>JavaScript Crash Course</h3>
+                        <a href="https://youtu.be/hdI2bqOjy3c"
+                           target="_blank"
+                           class="btn link-btn">Watch Lesson</a>
+                    </article>
+
+                    <article class="video-card">
+                        <h3>Frontend Projects</h3>
+                        <a href="https://youtu.be/Q33KBiDriJY"
+                           target="_blank"
+                           class="btn link-btn">Watch Lesson</a>
+                    </article>
+
                 </div>
             </div>
         </section>
@@ -150,18 +199,23 @@
         <div class="container footer-container">
             <div class="footer-brand">
                 <span class="brand-text">SkillLoop</span>
-                <p>Learn by building — step-by-step.</p>
+                <p>Learn by doing — build websites from scratch.</p>
             </div>
+
             <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="#courses">Courses</a>
                 <a href="#contact">Contact</a>
             </div>
+
             <div class="footer-note">
                 <p>© <span id="year"></span> SkillLoop</p>
             </div>
         </div>
-        <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+
+        <script>
+            document.getElementById("year").textContent = new Date().getFullYear();
+        </script>
     </footer>
 
 </body>
