@@ -1,0 +1,130 @@
+/* ======================================
+   SkillLoop Dashboard Page Styles
+   ====================================== */
+
+/* Container spacing below header */
+.dashboard-container {
+    margin-top: 60px;
+}
+
+/* Dashboard gradient header box */
+.dashboard-header-box {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    padding: 40px 30px;
+    border-radius: 16px;
+    color: #ffffff;
+    margin-top: 120px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    text-align: left;
+}
+
+.dashboard-header-box h2 {
+    margin: 0;
+    font-size: 2.1rem;
+    font-weight: 700;
+}
+
+.dashboard-header-box p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-top: 6px;
+}
+
+/* Dashboard grid for cards */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 40px;
+}
+
+/* Dashboard cards */
+.dashboard-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    transition: 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+}
+
+.dashboard-card h3 {
+    margin-bottom: 14px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* Small course cards (if you later add thumbnails) */
+.course-small-card {
+    padding: 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    display: flex;
+    gap: 14px;
+    background: #fafafa;
+    align-items: center;
+    margin-bottom: 10px;
+    transition: 0.2s;
+}
+
+.course-small-card:hover {
+    background: #eef6ff;
+    border-color: #3b82f6;
+}
+
+.course-small-card img {
+    width: 70px;
+    height: 50px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+/* Quick action buttons row */
+.quick-actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Logout button styling (both header + mobile) */
+.logoutBtn {
+    margin-top: 0;
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.8px solid #3b82f6;
+    background: transparent;
+    color: #3b82f6;
+    transition: 0.25s;
+    text-decoration: none;
+}
+
+.logoutBtn:hover {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+/* Mobile-only logout (bottom of page) */
+.mobile-logout {
+    margin-top: 28px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .dashboard-header-box {
+        margin-top: 100px;
+        text-align: center;
+        padding: 32px 20px;
+    }
+
+    .dashboard-grid {
+        margin-top: 28px;
+    }
+}
