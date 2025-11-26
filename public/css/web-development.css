@@ -1,0 +1,98 @@
+/* Web Development page theme */
+
+:root {
+    --primary: #3b82f6;
+    --primary-dark: #1d4ed8;
+    --gradient-start: #6366f1;
+    --gradient-end: #3b82f6;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --bg-light: #f3f4f6;
+    --bg-soft: #f9fafb;
+    --border-soft: #e5e7eb;
+    --white: #ffffff;
+    --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.08);
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--bg-soft);
+    color: var(--text-main);
+}
+
+/* Similar structure to AI/Data Science pages */
+.wd-main {
+    background: radial-gradient(circle at top left, #e0f7ff 0, #ffffff 40%, #f3f4f6 100%);
+}
+
+.wd-hero {
+    padding: 4.5rem 0;
+}
+
+.wd-hero-container {
+    display: grid;
+    grid-template-columns: minmax(0,1.4fr) minmax(0,1fr);
+    gap: 3rem;
+    align-items: center;
+}
+
+.wd-hero-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.wd-video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: .6rem;
+}
+.wd-video-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Grid styling reused */
+.wd-features-grid,
+.wd-paths-grid,
+.wd-videos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 1.4rem;
+}
+
+.feature-card, .path-card, .video-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 1.3rem 1.2rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.feature-icon {
+    font-size: 1.4rem;
+    margin-bottom: .5rem;
+}
+
+/* Responsive */
+@media (max-width: 960px){
+    .wd-hero-container { grid-template-columns: minmax(0,1fr); }
+    .wd-features-grid,
+    .wd-paths-grid,
+    .wd-videos-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+}
+@media (max-width: 640px){
+    .wd-features-grid,
+    .wd-paths-grid,
+    .wd-videos-grid {
+        grid-template-columns: minmax(0,1fr);
+    }
+}
