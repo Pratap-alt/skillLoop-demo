@@ -7,16 +7,20 @@ const LOCAL_FALLBACK = "/mnt/data/sa.png";
 const categories = [
     {
         name: 'Business',
-        courses: 4,
+        courses: 4+,
         image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40',
         link: 'business.html' // 👉 when clicked, go to business page
     },
     { name: 'Artificial Intelligence',
-    courses: 4,
+    courses: 4+,
     image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995',
     link: 'ai.html'
     },
-    { name: 'Data Science', courses: 950, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71' },
+    { name: 'Data Science',
+    courses: 4+,
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71',
+    link: 'data-science.html' 
+    },
     { name: 'Web Development', courses: 1500, image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085' },
     { name: 'Mobile Development', courses: 680, image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c' },
     { name: 'Design', courses: 920, image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5' },
