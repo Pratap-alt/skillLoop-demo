@@ -11,11 +11,7 @@ const categories = [
     { name: 'Web Development', courses: 1500, image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085' },
     { name: 'Mobile Development', courses: 680, image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c' },
     { name: 'Design', courses: 920, image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5' },
-    { name: 'Marketing', courses: 740, image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f' },
     { name: 'Finance', courses: 580, image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e' },
-    { name: 'Health & Wellness', courses: 450, image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773' },
-    { name: 'Languages', courses: 620, image: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d' },
-    { name: 'Photography', courses: 380, image: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d' },
     { name: 'Music', courses: 340, image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d' }
 ];
 
