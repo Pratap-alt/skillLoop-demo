@@ -160,6 +160,85 @@
     margin-top: 8px;
 }
 
+/* Recommended courses list */
+.recommended-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.recommended-course {
+    padding: 14px 14px 12px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    transition: 0.2s ease;
+}
+
+.recommended-course:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    transform: translateY(-2px);
+}
+
+.rc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.rc-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+}
+
+.rc-tag {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.rc-tag-beginner {
+    background: #ecfdf5;
+    color: #16a34a;
+}
+
+.rc-tag-intermediate {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.rc-tag-advanced {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.rc-desc {
+    font-size: 0.9rem;
+    color: #4b5563;
+    margin: 4px 0 8px;
+}
+
+.rc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.rc-meta i {
+    margin-right: 4px;
+}
+
 /* Responsive tweaks */
 @media (max-width: 768px) {
     .dashboard-header-box {
