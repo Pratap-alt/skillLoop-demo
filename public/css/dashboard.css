@@ -59,7 +59,7 @@
     color: #111827;
 }
 
-/* Logout button styling (both header + mobile) */
+/* Logout / End Session buttons */
 .logoutBtn {
     margin-top: 0;
     display: inline-block;
