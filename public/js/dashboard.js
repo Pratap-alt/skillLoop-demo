@@ -1,5 +1,3 @@
-// js/dashboard.js
-
 document.addEventListener("DOMContentLoaded", () => {
     const profileNameSpan = document.getElementById("profileName");
     const profileEmailSpan = document.getElementById("profileEmail");
@@ -47,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (res.status === 401) {
-                // ⬇⬇ redirect to index.html (login page)
                 window.location.href = "index.html";
                 return;
             }
@@ -160,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 if (res.status === 401) {
-                    // ⬇⬇ redirect to index.html (login page)
                     window.location.href = "index.html";
                     return;
                 }
