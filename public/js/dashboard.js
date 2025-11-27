@@ -1,3 +1,5 @@
+// js/dashboard.js
+
 document.addEventListener("DOMContentLoaded", () => {
     const profileNameSpan = document.getElementById("profileName");
     const profileEmailSpan = document.getElementById("profileEmail");
