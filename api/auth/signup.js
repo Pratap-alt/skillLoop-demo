@@ -19,6 +19,7 @@ module.exports = async function handler(req, res) {
 
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST']);
+
     return res.status(405).json({
       error: 'Method not allowed'
     });
@@ -37,9 +38,11 @@ module.exports = async function handler(req, res) {
 
     // Validation
     if (!firstName || !lastName || !email || !password) {
+
       return res.status(400).json({
         error: 'All fields are required'
       });
+
     }
 
     // Check existing user
@@ -48,9 +51,11 @@ module.exports = async function handler(req, res) {
     });
 
     if (existingUser) {
+
       return res.status(409).json({
         error: 'Email already registered'
       });
+
     }
 
     // Hash password
@@ -64,13 +69,13 @@ module.exports = async function handler(req, res) {
       passwordHash
     });
 
-    // Create JWT
+    // Generate JWT
     const token = createToken({
       id: user._id,
       email: user.email
     });
 
-    // Cookie
+    // Set cookie
     res.setHeader(
       'Set-Cookie',
       cookie.serialize('token', token, {

@@ -1,17 +1,34 @@
 // models/User.js
+
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: { type: String, unique: true, lowercase: true, index: true },
-  passwordHash: String,
-  mobile: String,
-  address: String,
-  dob: Date,
-  sex: String,
-  avatar: String, // base64 or URL
-  createdAt: { type: Date, default: Date.now }
+
+  firstName: {
+    type: String,
+    required: true
+  },
+
+  lastName: {
+    type: String,
+    required: true
+  },
+
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+
+  passwordHash: {
+    type: String,
+    required: true
+  }
+
+}, {
+  timestamps: true
 });
 
-module.exports = mongoose.models.User || mongoose.model('User', UserSchema);
+module.exports =
+  mongoose.models.User ||
+  mongoose.model('User', UserSchema);
