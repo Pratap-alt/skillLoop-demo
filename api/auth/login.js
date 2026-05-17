@@ -4,15 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie');
-
-const UserSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: { type: String, unique: true, lowercase: true, index: true },
-  passwordHash: String,
-  createdAt: { type: Date, default: Date.now }
-});
-const User = mongoose.models.User || mongoose.model('User', UserSchema);
+const User = require('../../models/User');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
@@ -50,7 +42,14 @@ module.exports = async function handler(req, res) {
     });
     res.setHeader('Set-Cookie', cookieStr);
 
-    res.json({ user: { id: user._id, email: user.email, firstName: user.firstName } });
+    res.json({
+      user: {
+        id: user._id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName
+      }
+    });
   } catch (err) {
     console.error('login error', err);
     res.status(500).json({ error: 'Server error' });

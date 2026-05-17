@@ -4,21 +4,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie');
-
-// Minimal User model definition inside file (works for serverless)
-// You could also move models to /models/User.js and import them.
-const UserSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: { type: String, unique: true, lowercase: true, index: true },
-  passwordHash: String,
-  createdAt: { type: Date, default: Date.now }
-});
-const User = mongoose.models.User || mongoose.model('User', UserSchema);
+const User = require('../../models/User');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
-const COOKIE_SECURE = process.env.COOKIE_SECURE === 'true'; // set true in production with HTTPS
+const COOKIE_SECURE = process.env.COOKIE_SECURE === 'true';
 
 function createToken(payload) {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
@@ -35,12 +25,10 @@ module.exports = async function handler(req, res) {
 
     const { firstName, lastName, email, password } = req.body || {};
 
-    // Basic validation
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Check duplicate
     const existing = await User.findOne({ email: email.toLowerCase() });
     if (existing) return res.status(409).json({ error: 'Email already registered' });
 
@@ -50,26 +38,31 @@ module.exports = async function handler(req, res) {
       lastName,
       email: email.toLowerCase(),
       passwordHash: hash
+      // other fields (mobile, etc.) can be filled later from dashboard
     });
     await user.save();
 
     const token = createToken({ id: user._id, email: user.email });
 
-    // Set HttpOnly cookie
     const cookieStr = cookie.serialize('token', token, {
       httpOnly: true,
       secure: COOKIE_SECURE,
       sameSite: 'lax',
       path: '/',
-      maxAge: 60 * 60 * 24 * 7 // 7 days
+      maxAge: 60 * 60 * 24 * 7
     });
     res.setHeader('Set-Cookie', cookieStr);
 
-    // respond with safe user info
-    res.status(201).json({ user: { id: user._id, email: user.email, firstName: user.firstName } });
+    res.status(201).json({
+      user: {
+        id: user._id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName
+      }
+    });
   } catch (err) {
     console.error('signup error', err);
-    // Duplicate key might throw, but we handled above; still catch
     res.status(500).json({ error: 'Server error' });
   }
 };

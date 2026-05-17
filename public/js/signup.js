@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Success
       showToast('Account created successfully. Redirecting to sign in...');
       // You may redirect to dashboard directly if server logs in user and sets cookie
-      setTimeout(() => window.location.href = 'login.html', 1400);
+      setTimeout(() => window.location.href = 'index.html', 1400);
 
     } catch (err) {
       console.error('Network or server error during signup:', err);
